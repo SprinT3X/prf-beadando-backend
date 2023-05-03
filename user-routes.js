@@ -57,11 +57,8 @@ function updateUser(req, res) {
         if (err) return res.status(500).send('Unable to reach database', err)
         else if (!user) return res.status(404).send('Username does not exist')
         else {
-            if(user.password != req.body.password) user.last_password_changed_date = Date.now()
             user.password = req.body.password
             user.email = req.body.email
-            user.updated_at = Date.now()
-
             user.save((err) => {
                 if (err) return res.status(500).send('Unable to save user', err)
                 else res.status(200).send('User has been updated')
