@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 const passport = require('passport')
 const localStrategy = require('passport-local').Strategy
 const expressSession = require('express-session')
@@ -31,6 +32,9 @@ require('./db/users')();
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json({}))
+
+// CORS configuration
+app.use(cors({origin:true,credentials: true}));
 
 // Authenticating request from cookie
 passport.use('local', new localStrategy(function (username, password, done) {
